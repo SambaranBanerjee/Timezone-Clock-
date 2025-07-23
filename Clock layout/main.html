@@ -13,9 +13,40 @@
 <body>
     <div id="clock">
 
-        <button data-micromodal-trigger="modal-1" id="TimeZone"><i class="fa-solid fa-pen-to-square"></i></button>
+        <div class="clock-controls">
+            <button data-micromodal-trigger="modal-1" id="TimeZone"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button id="toggleClockType"><i class="fa-solid fa-clock-rotate-left"></i></button>
+        </div>
 
-        <div id="Time"></div>
+        <!-- Analog Clock -->
+        <div id="analog-clock" class="active">
+            <div class="clock-face">
+                <!-- Clock numbers -->
+                <div class="clock-number" data-number="12"></div>
+                <div class="clock-number" data-number="1"></div>
+                <div class="clock-number" data-number="2"></div>
+                <div class="clock-number" data-number="3"></div>
+                <div class="clock-number" data-number="4"></div>
+                <div class="clock-number" data-number="5"></div>
+                <div class="clock-number" data-number="6"></div>
+                <div class="clock-number" data-number="7"></div>
+                <div class="clock-number" data-number="8"></div>
+                <div class="clock-number" data-number="9"></div>
+                <div class="clock-number" data-number="10"></div>
+                <div class="clock-number" data-number="11"></div>
+                <!-- Minute markers will be added via JavaScript -->
+                <div class="hand hour-hand" id="hour-hand"></div>
+                <div class="hand minute-hand" id="minute-hand"></div>
+                <div class="hand second-hand" id="second-hand"></div>
+                <div class="center-circle"></div>
+            </div>
+        </div>
+
+        <!-- Digital Clock -->
+        <div id="digital-clock">
+            <div id="Time"></div>
+            <div id="Date"></div>
+        </div>
         <div id="Date"></div>
 
         <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
@@ -28,12 +59,12 @@
                         <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                     </header>
                     <main class="modal__content" id="modal-1-content">
-                        <select id="ZoneChange">
-                            <option class="options" value="UTC">UTC</option>
-                            <option class="options" value="America/New_York">America/New_York</option>
-                            <option class="options" value="Europe/London">Europe/London</option>
-                            <option class="options" value="Asia/Tokyo">Asia/Tokyo</option>
-                            <option class="options" value="Asia/Kolkata">Indian Standard Time</option>
+                       <select id="ZoneChange">
+                            <option class="options" value="UTC" data-theme="default">UTC</option>
+                            <option class="options" value="America/New_York" data-theme="newyork">America/New_York</option>
+                            <option class="options" value="Europe/London" data-theme="london">Europe/London</option>
+                            <option class="options" value="Asia/Tokyo" data-theme="tokyo">Asia/Tokyo</option>
+                            <option class="options" value="Asia/Kolkata" data-theme="india">Indian Standard Time</option>
                         </select>
                     </main>
                     <footer class="modal__footer">

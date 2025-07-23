@@ -1,69 +1,452 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-html {
-    display: flex;
+html, body {
+    width: 100%;
     height: 100%;
-    justify-content: center;
-    margin: 0;
-    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Background Patterns with Full Page Coverage */
 body {
-    margin: 0;
-    background-color: goldenrod;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background 0.5s ease;
 }
 
+/* Center Clock Perfectly */
+#clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Background Themes */
+.default-theme {
+    background-color: #f5d742;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.3) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255,255,255,0.3) 0%, transparent 20%),
+        linear-gradient(45deg, #f5d742 0%, #e6a800 100%);
+}
+
+.newyork-theme {
+    background-color: #0a2342;
+    background-image: 
+        linear-gradient(rgba(44, 165, 141, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(44, 165, 141, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: cityLights 20s linear infinite;
+}
+
+.london-theme {
+    background-color: #5f4b66;
+    background-image: 
+        radial-gradient(circle, rgba(167, 173, 198, 0.2) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.tokyo-theme {
+    background-color: #e7625f;
+    background-image: 
+        linear-gradient(135deg, rgba(0,0,0,0.05) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(0,0,0,0.05) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(0,0,0,0.05) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 0, 30px -30px, 0px 30px;
+    animation: japan 60s linear infinite;
+}
+
+.india-theme {
+    background-color: #ff9933;
+    background-image: 
+        radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px),
+        radial-gradient(circle, rgba(19, 136, 8, 0.2) 1px, transparent 1px);
+    background-size: 50px 50px, 70px 70px;
+    animation: mandala 100s linear infinite;
+}
+
+/* Background Animations */
+@keyframes cityLights {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+}
+
+@keyframes japan {
+    0% { background-position: 0 0, 30px 0, 30px -30px, 0px 30px; }
+    100% { background-position: 60px 0, 90px 0, 90px -30px, 60px 30px; }
+}
+
+@keyframes mandala {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 1000px 0, 700px 0; }
+}
+
+/* Floating Elements */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 15%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 15%);
+    pointer-events: none;
+}
+
+/* Clock Container - Perfectly Centered */
 #clock {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 5px solid black;
-    border-radius: 10px;
-    background-color: beige;
-    box-shadow: 2px 2px;
     flex-direction: column;
-    height: 50vh;
-    width: 40vw;
+    border-radius: 20px;
+    box-shadow: 
+        0 0 40px rgba(0,0,0,0.4),
+        inset 0 0 30px rgba(255,255,255,0.5);
+    width: 450px;
+    height: 500px;
+    padding: 40px;
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+    margin: auto; /* Ensures perfect centering */
 }
 
-#Time {
-    font-size: 4em;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
+/* Clock Controls */
+.clock-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-#Date {
-    font-size: 1em;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-}
-
-#TimeZone {
-    margin-top: 10px;
+#TimeZone, #toggleClockType, #styleToggle, #sweepToggle {
     background: #007bff;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-#TimeZone:hover {
-    background: #0056b3;
+#TimeZone:hover, #toggleClockType:hover, #styleToggle:hover, #sweepToggle:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-/* MicroModal styles */
+/* Digital Clock Styles */
+#digital-clock {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#Time {
+    font-size: 5.5em;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+    color: #333;
+    letter-spacing: 2px;
+}
+
+#Date {
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 30px;
+    color: #555;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Analog Clock Styles */
+#analog-clock {
+    width: 280px;
+    height: 280px;
+    position: relative;
+    margin: 20px auto;
+}
+
+.clock-face {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    border-radius: 15px;
+    transition: transform 0.05s cubic-bezier(0.1, 2.7, 0.6, 1);
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+}
+
+.hour-hand {
+    width: 12px;
+    height: 90px;
+    background: #333;
+    margin-left: -6px;
+    z-index: 3;
+}
+
+.minute-hand {
+    width: 8px;
+    height: 120px;
+    background: #555;
+    margin-left: -4px;
+    z-index: 2;
+}
+
+.second-hand {
+    width: 4px;
+    height: 130px;
+    background: #e74c3c;
+    margin-left: -2px;
+    z-index: 1;
+}
+
+.center-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    background: #333;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+/* Minute Markers */
+.minute-marker {
+    display: none;
+}
+
+.hour-marker {
+    display: none;
+}
+
+/* Clock Numbers */
+.clock-number {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    transform-origin: center;
+    z-index: 5;
+}
+
+/* Position each number */
+
+
+/* Roman numeral style */
+.roman .clock-number:nth-child(1)::after { content: 'XII'; }
+.roman .clock-number:nth-child(2)::after { content: 'I'; }
+.roman .clock-number:nth-child(3)::after { content: 'II'; }
+.roman .clock-number:nth-child(4)::after { content: 'III'; }
+.roman .clock-number:nth-child(5)::after { content: 'IV'; }
+.roman .clock-number:nth-child(6)::after { content: 'V'; }
+.roman .clock-number:nth-child(7)::after { content: 'VI'; }
+.roman .clock-number:nth-child(8)::after { content: 'VII'; }
+.roman .clock-number:nth-child(9)::after { content: 'VIII'; }
+.roman .clock-number:nth-child(10)::after { content: 'IX'; }
+.roman .clock-number:nth-child(11)::after { content: 'X'; }
+.roman .clock-number:nth-child(12)::after { content: 'XI'; }
+
+/* Default number style */
+.clock-number::after {
+    content: attr(data-number);
+}
+
+/* Adjust for skeleton style */
+.skeleton .clock-number {
+    color: rgba(0,0,0,0.8);
+}
+
+/* Adjust for dark themes */
+.newyork-theme .clock-number,
+.tokyo-theme .clock-number {
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Roman Numerals */
+.roman .hour-marker::after {
+    position: absolute;
+    content: '';
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #333;
+    left: -12px;
+    top: -40px;
+}
+
+/* Skeleton Style */
+.skeleton .clock-face {
+    background: transparent;
+    border: 15px solid rgba(0,0,0,0.1);
+    box-shadow: none;
+}
+
+.skeleton .hand {
+    background: rgba(0,0,0,0.9);
+}
+
+.skeleton .center-circle {
+    background: rgba(0,0,0,0.9);
+}
+
+.skeleton .minute-marker,
+.skeleton .hour-marker {
+    background: rgba(0,0,0,0.5);
+}
+
+/* Sweeping Second Hand */
+.sweeping .second-hand {
+    transition: transform 0.2s cubic-bezier(0.4, 2.3, 0.3, 1);
+}
+
+/* Clock Visibility Toggles */
+#analog-clock {
+    display: block;
+}
+
+#digital-clock {
+    display: none;
+}
+
+#analog-clock.inactive, #digital-clock.active {
+    display: none;
+}
+
+#analog-clock.active, #digital-clock.inactive {
+    display: block;
+}
+
+#digital-clock.active {
+    display: flex;
+}
+
+/* Theme Specific Styles */
+.default-theme #clock {
+    background-color: rgba(245, 245, 220, 0.9) !important;
+}
+
+.newyork-theme #clock {
+    background-color: rgba(244, 97, 151, 0.9) !important;
+    color: white;
+}
+
+.newyork-theme .clock-face {
+    border-color: #2ca58d;
+    background: #f8f4e6;
+}
+
+.london-theme #clock {
+    background-color: rgba(167, 173, 198, 0.9) !important;
+}
+
+.london-theme .clock-face {
+    border-color: #5f4b66;
+    background: #f0f0f0;
+}
+
+.tokyo-theme #clock {
+    background-color: rgba(248, 244, 230, 0.9) !important;
+}
+
+.tokyo-theme .clock-face {
+    border-color: #2a2b2a;
+    background: #fff;
+}
+
+.india-theme #clock {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.india-theme .clock-face {
+    border-color: #138808;
+    background: #fff;
+}
+
+/* Theme-specific button colors */
+.newyork-theme #TimeZone,
+.newyork-theme #toggleClockType,
+.newyork-theme #styleToggle,
+.newyork-theme #sweepToggle {
+    background-color: #2ca58d;
+}
+
+.london-theme #TimeZone,
+.london-theme #toggleClockType,
+.london-theme #styleToggle,
+.london-theme #sweepToggle {
+    background-color: #5f4b66;
+}
+
+.tokyo-theme #TimeZone,
+.tokyo-theme #toggleClockType,
+.tokyo-theme #styleToggle,
+.tokyo-theme #sweepToggle {
+    background-color: #2a2b2a;
+}
+
+.india-theme #TimeZone,
+.india-theme #toggleClockType,
+.india-theme #styleToggle,
+.india-theme #sweepToggle {
+    background-color: #138808;
+}
+
+/* Modal Styles */
 .modal {
     display: none;
-  }
+}
   
-  .modal.is-open {
+.modal.is-open {
     display: block;
-  }
+}
           
 .modal__overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     position: fixed;
     top: 0;
     right: 0;
@@ -72,135 +455,206 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    z-index: 1000;
+    animation: mmfadeIn 0.3s ease forwards;
 }
 
 .modal__container {
     background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 35px;
+    border-radius: 20px;
+    width: 400px;
+    max-width: 95vw;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: mmslideIn 0.3s 0.1s ease forwards;
 }
 
 .modal__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .modal__title {
     margin: 0;
-    font-size: 1.25rem;
-    line-height: 1.25;
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 600;
 }
 
 .modal__close {
     background: transparent;
     border: 0;
-    font-size: 1.5rem;
+    font-size: 2rem;
     cursor: pointer;
+    color: #666;
+    transition: color 0.2s ease;
+    line-height: 1;
 }
 
-.modal__header .modal__close:before { content: "\2715"; }
+.modal__close:hover {
+    color: #333;
+}
+
+.modal__header .modal__close:before { content: "×"; }
 
 .modal__content {
-    margin-top: 2rem;
-    margin-bottom: 20px;
-    line-height: 1.5;
-    color: rgba(0,0,0,.8);
+    margin-bottom: 35px;
+}
+
+select#ZoneChange {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+select#ZoneChange:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
 }
 
 .modal__footer {
     display: flex;
     justify-content: flex-end;
+    gap: 15px;
 }
 
 .modal__btn {
-    background: #007bff;
+    background: #6c757d;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 14px 24px;
+    border-radius: 10px;
     cursor: pointer;
-    appearance: none;
-    -webkit-appearance: button;
-    text-transform: none;
-    overflow: visible;
-    will-change: transform;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    transition: -webkit-transform .25s ease-out;
-    transition: transform .25s ease-out;
-    transition: transform .25s ease-out,-webkit-transform .25s ease-out;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 100px;
 }
 
 .modal__btn:hover {
-    background: #0056b3;
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-
-.modal__btn:focus, .modal__btn:hover {
-    -webkit-transform: scale(1.05);
-    transform: scale(1.05);
-  }
 
 .modal__btn-primary {
-    background-color: #00449e;
-    color: #fff;
-    margin-left: 10px;
+    background-color: #007bff;
 }
 
-/*Animations */
+.modal__btn-primary:hover {
+    background-color: #0069d9;
+}
 
+/* Floating Particles */
+.particle {
+    position: absolute;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float linear infinite;
+    z-index: 1;
+    filter: blur(0.5px);
+}
+
+@keyframes float {
+    to { transform: translateY(-100vh) rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #clock {
+        width: 90vw;
+        height: 80vh;
+        padding: 25px;
+    }
+    
+    #analog-clock {
+        width: 220px;
+        height: 220px;
+    }
+    
+    .hand {
+        transform-origin: 50% 110px;
+    }
+    
+    .minute-marker, .hour-marker {
+        transform-origin: 50% 110px;
+    }
+    
+    #Time {
+        font-size: 4em;
+    }
+    
+    #Date {
+        font-size: 1.5em;
+        margin-top: 20px;
+    }
+    
+    .clock-controls {
+        gap: 10px;
+    }
+    
+    #TimeZone, #toggleClockType, #styleToggle, #sweepToggle {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    .modal__container {
+        padding: 25px;
+    }
+    
+    .modal__btn {
+        padding: 12px 18px;
+        font-size: 14px;
+    }
+}
+
+/* Animations */
 @keyframes mmfadeIn {
     from { opacity: 0; }
-      to { opacity: 1; }
+    to { opacity: 1; }
 }
 
 @keyframes mmfadeOut {
     from { opacity: 1; }
-      to { opacity: 0; }
+    to { opacity: 0; }
 }
 
 @keyframes mmslideIn {
-  from { transform: translateY(15%); }
-    to { transform: translateY(0); }
+    from { 
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @keyframes mmslideOut {
-    from { transform: translateY(0); }
-    to { transform: translateY(-10%); }
+    from { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to { 
+        transform: translateY(-20px);
+        opacity: 0;
+    }
 }
 
 .micromodal-slide {
-  display: none;
+    display: none;
 }
 
 .micromodal-slide.is-open {
-  display: block;
-}
-
-.micromodal-slide[aria-hidden="false"] .modal__overlay {
-  animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
-}
-
-.micromodal-slide[aria-hidden="false"] .modal__container {
-  animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
-}
-
-.micromodal-slide[aria-hidden="true"] .modal__overlay {
-  animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
-}
-
-.micromodal-slide[aria-hidden="true"] .modal__container {
-  animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
-}
-
-.micromodal-slide .modal__container,
-.micromodal-slide .modal__overlay {
-  will-change: transform;
+    display: block;
 }
